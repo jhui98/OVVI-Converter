@@ -2,7 +2,7 @@
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
-import func
+from methods import get_departments, item_department_dict
 
 # import file path from clover
 clover_folder = input(r"Input the folder path that you are using: ") 
@@ -21,9 +21,19 @@ print(clover_file)
 print(clover_path)
 
 # load worksheet
-wb = load_workbook(clover_path)
-ws = wb.active
-print(wb.sheetnames)
+clover_wb = load_workbook(clover_path)
+clover_ws = clover_wb.active
+print(clover_wb.sheetnames)
+
+# get departments
+departments = get_departments(clover_wb)
+
+# create dictionary of items with assigned department
+items_dict = item_department_dict(clover_wb, departments)
+
+
+
+# https://www.programiz.com/python-programming/nested-dictionary
 
 # Item structure
     # item_name = {
