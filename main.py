@@ -1,8 +1,8 @@
 # Jacob Hui - Clover Automation
 
+from methods import get_departments, item_department_dict, initialItemIstance, Ovvi
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
-from methods import get_departments, item_department_dict
 
 # import file path from clover
 clover_folder = input(r"Input the folder path that you are using: ") 
@@ -31,6 +31,12 @@ departments = get_departments(clover_wb)
 # create dictionary of items with assigned department
 items_dict = item_department_dict(clover_wb, departments)
 
+
+items = initialItemIstance(clover_wb, departments)
+print(items[0].itemName)
+print(items[0].department)
+print(items[-1].itemName)
+print(items[-1].department)
 
 
 # https://www.programiz.com/python-programming/nested-dictionary
