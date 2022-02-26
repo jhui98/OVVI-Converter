@@ -2,7 +2,7 @@
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
-import cloverfunc
+import func
 
 # import file path from clover
 clover_folder = input(r"Input the folder path that you are using: ") 
@@ -10,8 +10,9 @@ clover_file = input(r"Input file name: ") + ".xlsx"
 # print(clover_folder, clover_file)
 
 # test file
-clover_folder = r"C:\Users\Ovvi\OneDrive\Desktop\Automation\Clover" 
-clover_file = r"\testclover.xlsx"
+# clover_folder = r"C:\Users\Ovvi\OneDrive\Desktop\Automation\Clover" 
+# clover_file = r"\testclover.xlsx"
+clover_file = "testclover.xlsx"
 
 # sanity check
 clover_path = clover_folder + clover_file
