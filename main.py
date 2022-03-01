@@ -31,15 +31,20 @@ departments = get_departments(clover_wb)
 # create dictionary of items with assigned department
 items_dict = item_department_dict(clover_wb, departments)
 
-
 items = initialItemIstance(clover_wb, departments)
+print('-')
 print(items[0].itemName)
-print(items[0].department)
+print(items[0].itemDepartment)
 print(items[-1].itemName)
-print(items[-1].department)
+print(items[-1].itemDepartment)
 
-
-# https://www.programiz.com/python-programming/nested-dictionary
+index = 0
+for item in items:
+    if item.itemName == 'Kiwi':
+        print(item.itemName)
+        print(item.itemDepartment)
+        print(index)
+    index += 1
 
 # Item structure
     # item_name = {
