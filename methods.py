@@ -22,7 +22,6 @@ def item_department_dict(clover_wb, departments):
             if (cell.value != None) and (cell.value != dep): # cell not empty and not department
                 item = str(cell.value)
                 item_dict[item] = {"department": dep}
-                # print(cell.value)
     return item_dict
 
 def initialItemIstance(clover_wb, departments):
@@ -30,10 +29,10 @@ def initialItemIstance(clover_wb, departments):
     ws = clover_wb["Categories"] # select categories ws
     for col in range(len(departments)):
         dep = str(departments[col]) # save department name
-        for cell in ws[get_column_letter(col+1)]: # for every cell within column index
-            if (cell.value != None) and (cell.row != 1): # cell not empty and not department
-                itemName = str(cell.value)
-                item = Ovvi(itemName, dep)
+        for cell in ws[get_column_letter(col+2)]: # for every cell within column index
+            if (cell.value != None) and (cell.value != dep): # cell not empty and not department
+                item = str(cell.value)
+                item = Ovvi(item, dep)
                 items.append(item)
     return items
 
@@ -51,15 +50,18 @@ def init_OVVI(folder):
 class Ovvi:
     def __init__(self, itemName, department):
         self.itemName = itemName
-        self.department = department
-        self.sellPrice = ""
-        self.barcode = ""
-        self.cost = ""
+        self.itemDepartment = department
+        self.itemSellPrice = 0.00
+        self.itemBarcode = None
+        self.itemCost = 0.00
 
-    def changeItemName(updatedName):
-        self.itemName = updatedName
+    def changeSellPrice(self, sellPrice): # change item sell price
+        self.itemSellPrice = sellPrice
 
-    def changeSellPrice():
-        pass
+    def changeItemBarcode(self, barcode): # change item barcode
+        self.itemBarcode = barcode
+
+    def changeIemCost(self, itemCost): # change item cost
+        self.itemCost = itemCost
 
     
