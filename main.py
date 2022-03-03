@@ -38,26 +38,17 @@ print(items[0].itemDepartment)
 print(items[-1].itemName)
 print(items[-1].itemDepartment)
 
-index = 0
-for item in items:
-    if item.itemName == 'Kiwi':
-        print(item.itemName)
-        print(item.itemDepartment)
-        print(index)
-    index += 1
-
-# Item structure
-    # item_name = {
-    # department: "",
-    # price: float(),
-    # cost: float(),
-    # barcode: ""
-    # }
+# index = 0
+# for item in items:
+#     if item.itemName == 'Kiwi':
+#         print(item.itemName)
+#         print(item.itemDepartment)
+#         print(index)
+#     index += 1
 
 # categories sheet 
 # get item
 # get department 
-
 
 # find item in items sheet 
 # populate item attributes 
