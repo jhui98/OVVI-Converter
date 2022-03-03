@@ -47,6 +47,16 @@ def init_OVVI(folder):
     
     wb.save(filename = dest_filename)
 
+def findItem(itemsList, itemName):
+    index = 0
+    for item in itemsList:
+        if item.itemName == itemName:
+            print(item.itemName)
+            print(item.itemDepartment)
+            print(index)
+    index += 1
+
+
 class Ovvi:
     def __init__(self, itemName, department):
         self.itemName = itemName
@@ -54,6 +64,13 @@ class Ovvi:
         self.itemSellPrice = 0.00
         self.itemBarcode = None
         self.itemCost = 0.00
+    # Item structure
+        # item_name = {
+        # department: "",
+        # price: float(),
+        # barcode: "",
+        # cost: float(),
+        # }
 
     def changeSellPrice(self, sellPrice): # change item sell price
         self.itemSellPrice = sellPrice
