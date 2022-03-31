@@ -56,7 +56,7 @@ class Ovvi:
         self.barcode = ""
         self.cost = ""
 
-    def changeItemName(updatedName):
+    def changeItemName(self, updatedName):
         self.itemName = updatedName
 
     def changeSellPrice():
