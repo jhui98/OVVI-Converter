@@ -81,4 +81,8 @@ class Ovvi:
     def changeIemCost(self, itemCost): # change item cost
         self.itemCost = itemCost
 
+    def leadingZeroBarcode(self): # change item barcode
+        ogBarcode = self.itemBarcode 
+        updatedBarcode = ogBarcode + "@0" + ogBarcode
+        self.itemBarcode = updatedBarcode
     
