@@ -1,5 +1,16 @@
 # Jacob Hui - Clover Automation Functions
 
+logo = """
+   ____               _    _____                          _            
+  / __ \             (_)  / ____|                        | |           
+ | |  | |_   ____   ___  | |     ___  _ ____   _____ _ __| |_ ___ _ __ 
+ | |  | \ \ / /\ \ / / | | |    / _ \| '_ \ \ / / _ \ '__| __/ _ \ '__|
+ | |__| |\ V /  \ V /| | | |___| (_) | | | \ V /  __/ |  | ||  __/ |   
+  \____/  \_/    \_/ |_|  \_____\___/|_| |_|\_/ \___|_|   \__\___|_|   
+                                                                       
+                                                                       
+"""
+
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
 
@@ -34,6 +45,23 @@ def initialItemIstance(clover_wb, departments):
                 item = str(cell.value)
                 item = Ovvi(item, dep)
                 items.append(item)
+
+    ws = clover_wb["Items"] # select categories ws
+    for row in ws.iter_rows(): # iter throguh rows
+        rowIndex = str(row[0].row) # get a row number
+        # get data from row based on col index
+        Name = ws[f"B{rowIndex}"].value
+        Price = ws[f"D{rowIndex}"].value
+        Cost = ws[f"H{rowIndex}"].value
+        Barcode = ws[f"J{rowIndex}"].value
+        Stock = ws[f"L{rowIndex}"].value
+
+        for item in items: # check items obj list for item name, add data
+            if item.itemName == Name:
+                item.changeSellPrice(Price)
+                item.changeItemBarcode(Barcode)
+                item.changeIemCost(Cost)
+                item.changeIemStock(Stock)
     return items
 
 
@@ -65,6 +93,7 @@ class Ovvi:
         self.itemBarcode = None
         self.itemCost = 0.00
         self.itemStock = 0.00
+        self.modifiers = []
     # Item structure
         # item_name = {
         # department: "",
@@ -85,7 +114,7 @@ class Ovvi:
     def changeIemCost(self, itemCost): # change item cost
         self.itemCost = itemCost
 
-    def changeIemCost(self, itemStock): # change item cost
+    def changeIemStock(self, itemStock): # change item cost
         self.itemStock = itemStock
 
     

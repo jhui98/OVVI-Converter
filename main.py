@@ -1,9 +1,10 @@
-# Jacob Hui - Clover Automation
+# Jacob Hui - Ovvi Converter
 
-from methods import get_departments, item_department_dict, initialItemIstance, Ovvi
+from methods import get_departments, item_department_dict, initialItemIstance, Ovvi, logo
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
 
+print(logo)
 # import file path from clover
 clover_folder = input(r"Input the folder path that you are using: ") 
 clover_file = input(r"Input file name: ") + ".xlsx"
@@ -32,29 +33,27 @@ departments = get_departments(clover_wb)
 items_dict = item_department_dict(clover_wb, departments)
 
 items = initialItemIstance(clover_wb, departments)
-print('-')
-# print(items[0].itemName)
-# print(items[0].itemDepartment)
 
-index = 0
-for item in items:
-    if item.itemName == 'Kiwi':
-        print(item.itemName)
-        print(item.itemDepartment)
-        print(index)
-    index += 1
-
-# categories sheet 
-# get item
-# get department 
-
-# find item in items sheet 
-ws = clover_wb["Items"] # select categories ws
-for row in ws.iter_rows():
-    print(row)
-    
-
-# populate item attributes 
+# double checking
+# for item in items:
+#     if item.itemName == '12CARLO ROSSI BURGUNDY 4L':
+#         print(item.itemName)
+#         print(item.itemDepartment)
+#         print(item.itemSellPrice)
+#         print(item.itemBarcode)
+#         print(item.itemCost)
+#         print(item.itemStock)
+# print("-----")
+# for item in items:
+#     if item.itemName == 'Goldwater Marlborough Char.':
+#         print(item.itemName)
+#         print(item.itemDepartment)
+#         print(item.itemSellPrice)
+#         print(item.itemBarcode)
+#         print(item.itemCost)
+#         print(item.itemStock)
 
 # store in new sheet
-# save 
+# save
+print()
+print("Finished")
