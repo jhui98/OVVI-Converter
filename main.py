@@ -3,6 +3,10 @@
 from methods import get_departments, item_department_dict, initialItemIstance, Ovvi, logo
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter
+import time
+from pathlib import Path
+downloads_path = str(Path.home() / "Downloads")
+print(downloads_path)
 
 run = "y"
 while run != "n":
@@ -10,8 +14,8 @@ while run != "n":
 
     task = input("""
     A: Clover Conversion
-    B: Double Check My Work (Coming soon)
-    C: Barcode Leading Zero Fix (Coming soon)
+    B: Barcode Leading Zero Fix (Coming soon)
+    C: Double Check My Work (Coming soon)
 
     Please choose an operation: """)
 
@@ -44,17 +48,25 @@ while run != "n":
         #         print(item.itemBarcode)
         #         print(item.itemCost)
         #         print(item.itemStock)
-        # print("-----")
-        # for item in items:
-        #     if item.itemName == 'Goldwater Marlborough Char.':
-        #         print(item.itemName)
-        #         print(item.itemDepartment)
-        #         print(item.itemSellPrice)
-        #         print(item.itemBarcode)
-        #         print(item.itemCost)
-        #         print(item.itemStock)
         
         # TODO: store in new sheet
+        wb = Workbook()
+        ws = wb.active
+        # create Item-PLU sheet
+        ws.title = "Item-PLU"
+        ws.append(["Department", "ItemNumber", "ItemName", "ModifierGroups", "Description", "Barcode", "Cost", "SellPrice", "InStock", "Tax1", "DisplayInMenu", "IsInventoryItem", "IsFoodStampItem", "BeveragesDeposit"])
+
+        # add in clover items
+        for item in items:
+            ws.append([item.itemDepartment, item.itemNumber, item.itemName, item.modifierGroups, item.description, item.itemBarcode, item.itemCost, item.itemSellPrice, item.inStock, item.tax1, item.displayInMenu, item.isInventoryItem, item.isFoodStampable, item.beverageDeposit])
+        
+        # create ModifierGroups sheet
+        wb.create_sheet("ModifierGroups")
+        ws = wb["ModifierGroups"]
+        ws.append(["Modifer Group Department", "Modifier Group Name", "Charged", "Modifier Department", "Modifier", "Price", "Min", "Max"])
+
+        timestr = time.strftime("%Y%m%d-%H%M%S")
+        wb.save(downloads_path + f"\Ovvi_Convert_Output_{timestr}.xlsx")
         # TODO: save
     
     print("Finished! Please check your downloads folder for the updated file.\n")

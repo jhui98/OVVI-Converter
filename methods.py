@@ -59,7 +59,7 @@ def initialItemIstance(clover_wb, departments):
                 item.changeSellPrice(Price)
                 item.changeItemBarcode(Barcode)
                 item.changeIemCost(Cost)
-                item.changeIemStock(Stock)
+                item.changeinStock(Stock)
     return items
 
 
@@ -84,13 +84,21 @@ def findItem(itemsList, itemName):
 
 class Ovvi:
     def __init__(self, itemName, department):
-        self.itemName = itemName
         self.itemDepartment = department
-        self.itemSellPrice = 0.00
-        self.itemBarcode = None
-        self.itemCost = 0.00
-        self.itemStock = 0.00
-        self.modifiers = []
+        self.itemNumber = ""
+        self.itemName = itemName
+        self.modifierGroups = ""
+        self.description = ""
+        self.itemBarcode = ""
+        self.itemCost = "0"
+        self.itemSellPrice = "0"
+        self.inStock = "0"
+        self.tax1 = "TRUE"
+        self.displayInMenu = "TRUE"
+        self.isInventoryItem = "TRUE"
+        self.isFoodStampable = "FALSE"
+        self.beverageDeposit = ""
+
     # Item structure
         # item_name = {
         # department: "",
@@ -98,20 +106,33 @@ class Ovvi:
         # barcode: "",
         # cost: float(),
         # }
+    
+    # def change(self, ): # change 
+    #     self. = 
+
+    def changeitemDepartment(self, itemDepartment): # change itemDepartment
+        self.itemDepartment = itemDepartment
+
+    def changeitemName(self, itemName): # change itemName
+        self.itemName = itemName
+
+    def changeDescription(self, description): # change description
+        self.description = description
+
+    def changeItemBarcode(self, barcode): # change item barcode
+        self.itemBarcode = barcode
+    
+    def changeIemCost(self, itemCost): # change item cost
+        self.itemCost = itemCost
 
     def changeSellPrice(self, sellPrice): # change item sell price
         self.itemSellPrice = sellPrice
 
-    def changeItemName(self, updatedName):
-        self.itemName = updatedName
+    def changeinStock(self, inStock): # change item inStock
+        self.inStock = inStock
 
-    def changeItemBarcode(self, barcode): # change item barcode
-        self.itemBarcode = barcode
 
-    def changeIemCost(self, itemCost): # change item cost
-        self.itemCost = itemCost
 
-    def changeIemStock(self, itemStock): # change item cost
-        self.itemStock = itemStock
+
 
     
