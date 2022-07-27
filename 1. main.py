@@ -84,7 +84,7 @@ while run != "n":
             # get data from row based on col index
             barcode = str(ws[f"F{rowIndex}"].value)
             char = "@"
-            if barcode == "None": # do nothing if empty 
+            if barcode == "None" or barcode == "Barcode": # do nothing if empty or barcode
                 pass 
             elif char in barcode:# do nothing since already has existing multi barcode
                 pass 
