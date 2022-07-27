@@ -4,7 +4,7 @@ from queue import Empty
 from clover_methods import get_departments, item_department_dict, initialItemIstance, Ovvi
 from openpyxl import Workbook, load_workbook
 from logo import logo
-import time
+import time, os
 from pathlib import Path
 downloads_path = str(Path.home() / "Downloads")
 # print(downloads_path)
@@ -31,11 +31,9 @@ while run != "n":
         endIndex = None
     inputFile = inputFile[startIndex:endIndex] # set inputFile to file path
     # print(inputFile) # sanity check
+    print("\nProcessing, please wait...\n") # UX udpate
     
     if task == "A" or task == "a": # Clover to OVVI format change
-
-        print("\nProcessing, please wait...\n") # UX udpate
-
         # load worksheet
         wb = load_workbook(inputFile)
         ws = wb.active
@@ -76,7 +74,6 @@ while run != "n":
         wb.create_sheet("ModifierGroups")
         ws = wb["ModifierGroups"]
         ws.append(["Modifer Group Department", "Modifier Group Name", "Charged", "Modifier Department", "Modifier", "Price", "Min", "Max"])
-
     elif task == "B" or task == "b": # Barcode Leading Zero Fix
         # load worksheet
         wb = load_workbook(inputFile)
@@ -87,19 +84,21 @@ while run != "n":
             # get data from row based on col index
             barcode = str(ws[f"F{rowIndex}"].value)
             char = "@"
-            if barcode == "": # do nothing if empty 
+            if barcode == "None": # do nothing if empty 
                 pass 
             elif char in barcode:# do nothing since already has existing multi barcode
                 pass 
             else: # if not empty and no @ in barcode
                 barcode = f"{barcode}@0{barcode}"
                 ws[f"F{rowIndex}"] = barcode
-    
-
-
+    elif task == "C" or task == "c": # Check My Work
+        pass
     # save
     timestr = time.strftime("%Y%m%d-%H%M%S")
-    wb.save(downloads_path + f"\Ovvi_Convert_Output_{timestr}.xlsx")
+    saveName = f"\Ovvi_Convert_Output_{timestr}.xlsx"
+    wb.save(downloads_path + saveName)
     # print statement and ask for another operation
-    print("Finished! Please check your downloads folder for the updated file.\n")
+    print("Finished! Please check your downloads folder for the updated file.")
+    print(f"Your new file is named: {saveName[1:]}\n")
     run = input("Would you like to process another operation? y or n: ")
+    os.system("cls") # clear screen to reset after one operation
