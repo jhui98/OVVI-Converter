@@ -1,12 +1,13 @@
 # Jacob Hui - Ovvi Converter
 
-from methods import get_departments, item_department_dict, initialItemIstance, Ovvi, logo
+from queue import Empty
+from clover_methods import get_departments, item_department_dict, initialItemIstance, Ovvi
 from openpyxl import Workbook, load_workbook
-from openpyxl.utils import get_column_letter
+from logo import logo
 import time
 from pathlib import Path
 downloads_path = str(Path.home() / "Downloads")
-print(downloads_path)
+# print(downloads_path)
 
 run = "y"
 while run != "n":
@@ -14,42 +15,53 @@ while run != "n":
 
     task = input("""
     A: Clover Conversion
-    B: Barcode Leading Zero Fix (Coming soon)
+    B: Barcode Leading Zero Fix
     C: Double Check My Work (Coming soon)
 
     Please choose an operation: """)
 
-    if task == "A" or "a": # CLover to OVVI format change
-        clover_path = input("\nPlease drag and drop the file, then press Enter: ")
-        clover_path = clover_path[3:-1]
-        # print(clover_path) # sanity check
-        print("\nProcessing, please wait...\n")
-        # import file path from clover
-        # clover_folder = input(r"Input the folder path that you are using: ") 
-        # clover_file = input(r"Input file name: ") + ".xlsx"
-        # print(clover_folder, clover_file)
+    inputFile = str(input("\nPlease drag and drop the file, then press Enter: "))
+    
+    # checking for formatting on input
+    startIndex = inputFile.index(":") # starting index is char after drive indicator
+    startIndex -= 1 # get one character back to get drive 
+    if inputFile[-1] == "\'" or inputFile[-1] == "\"": # check if ends with quote
+        endIndex = -1 # if quote at end, then end index one before
+    else: # no quote no need to do anything
+        endIndex = None
+    inputFile = inputFile[startIndex:endIndex] # set inputFile to file path
+    # print(inputFile) # sanity check
+    
+    if task == "A" or task == "a": # Clover to OVVI format change
+
+        print("\nProcessing, please wait...\n") # UX udpate
 
         # load worksheet
-        clover_wb = load_workbook(clover_path)
-        clover_ws = clover_wb.active
+        wb = load_workbook(inputFile)
+        ws = wb.active
         # print(clover_wb.sheetnames) # sanity check
 
-        departments = get_departments(clover_wb) # get departments
+        departments = get_departments(wb) # get departments
 
-        items_dict = item_department_dict(clover_wb, departments) # create dictionary of items with assigned department
-        items = initialItemIstance(clover_wb, departments)
+        items_dict = item_department_dict(wb, departments) # create dictionary of items with assigned department
+        items = initialItemIstance(wb, departments)
 
+        # TODO: Look into this
+        # from pprint import pprint
+        # pprint(vars(your_object))
+        
         # double checking
         # for item in items:
-        #     if item.itemName == '12CARLO ROSSI BURGUNDY 4L':
+        #     if item.itemName == '':
         #         print(item.itemName)
         #         print(item.itemDepartment)
         #         print(item.itemSellPrice)
         #         print(item.itemBarcode)
         #         print(item.itemCost)
         #         print(item.itemStock)
+
         
-        # TODO: store in new sheet
+        # store in new workbook
         wb = Workbook()
         ws = wb.active
         # create Item-PLU sheet
@@ -65,9 +77,29 @@ while run != "n":
         ws = wb["ModifierGroups"]
         ws.append(["Modifer Group Department", "Modifier Group Name", "Charged", "Modifier Department", "Modifier", "Price", "Min", "Max"])
 
-        timestr = time.strftime("%Y%m%d-%H%M%S")
-        wb.save(downloads_path + f"\Ovvi_Convert_Output_{timestr}.xlsx")
-        # TODO: save
+    elif task == "B" or task == "b": # Barcode Leading Zero Fix
+        # load worksheet
+        wb = load_workbook(inputFile)
+        ws = wb["Item-PLU"]
+        
+        for row in ws.iter_rows(): # iter throguh rows
+            rowIndex = str(row[0].row) # get a row number
+            # get data from row based on col index
+            barcode = str(ws[f"F{rowIndex}"].value)
+            char = "@"
+            if barcode == "": # do nothing if empty 
+                pass 
+            elif char in barcode:# do nothing since already has existing multi barcode
+                pass 
+            else: # if not empty and no @ in barcode
+                barcode = f"{barcode}@0{barcode}"
+                ws[f"F{rowIndex}"] = barcode
     
+
+
+    # save
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    wb.save(downloads_path + f"\Ovvi_Convert_Output_{timestr}.xlsx")
+    # print statement and ask for another operation
     print("Finished! Please check your downloads folder for the updated file.\n")
     run = input("Would you like to process another operation? y or n: ")
