@@ -92,7 +92,7 @@ while run != "n":
                 barcode = f"{barcode}@0{barcode}"
                 ws[f"F{rowIndex}"] = barcode
     elif task == "C" or task == "c": # Check My Work
-        # TODO: length of dept
+        # TODO: length of dept not greater than 30
         # TODO: length of item name
         # TODO: length of description
         # TODO: special characters in barcode (not including @)
