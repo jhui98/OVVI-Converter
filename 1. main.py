@@ -16,7 +16,7 @@ while run != "n":
     task = input("""
     A: Clover Conversion
     B: Barcode Leading Zero Fix
-    C: Double Check My Work (Coming soon)
+    C: Check My Work (Coming soon)
 
     Please choose an operation: """)
 
@@ -92,7 +92,17 @@ while run != "n":
                 barcode = f"{barcode}@0{barcode}"
                 ws[f"F{rowIndex}"] = barcode
     elif task == "C" or task == "c": # Check My Work
+        # TODO: length of dept
+        # TODO: length of item name
+        # TODO: length of description
+        # TODO: special characters in barcode (not including @)
+        # TODO: cost is number
+        # TODO: sell price is number
+        # TODO: tax1, display, inventory, foodstamp == TRUE or FALSE
+        # TODO: beverage deposit either blank or numerical
+
         pass
+
     # save
     timestr = time.strftime("%Y%m%d-%H%M%S")
     saveName = f"\Ovvi_Convert_Output_{timestr}.xlsx"
