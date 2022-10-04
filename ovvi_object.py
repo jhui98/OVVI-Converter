@@ -41,10 +41,12 @@ class Ovvi:
         self.itemBarcode = barcode
     
     def changeIemCost(self, itemCost): # change item cost
-        self.itemCost = itemCost
+        if itemCost != "":
+            self.itemCost = itemCost
 
     def changeSellPrice(self, sellPrice): # change item sell price
-        self.itemSellPrice = sellPrice
+        if sellPrice != "":
+            self.itemSellPrice = sellPrice
 
     def changeinStock(self, inStock): # change item inStock
         self.inStock = inStock
