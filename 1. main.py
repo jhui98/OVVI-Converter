@@ -100,6 +100,8 @@ while run != "n":
         # TODO: sell price is number
         # TODO: tax1, display, inventory, foodstamp == TRUE or FALSE
         # TODO: beverage deposit either blank or numerical
+        # get info from inspect elements
+        
 
         pass
 
