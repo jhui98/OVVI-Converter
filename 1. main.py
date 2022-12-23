@@ -64,16 +64,56 @@ while run != "n":
         ws = wb.active
         # create Item-PLU sheet
         ws.title = "Item-PLU"
-        ws.append(["Department", "ItemNumber", "ItemName", "ModifierGroups", "Description", "Barcode", "Cost", "SellPrice", "InStock", "Tax1", "DisplayInMenu", "IsInventoryItem", "IsFoodStampItem", "BeveragesDeposit"])
+        ws.append([
+            "Department", 
+            "ItemNumber", 
+            "ItemName", 
+            "ModifierGroups", 
+            "Description", 
+            "Barcode", 
+            "Cost", 
+            "SellPrice", 
+            "InStock", 
+            "Tax1", 
+            "DisplayInMenu", 
+            "IsInventoryItem", 
+            "IsFoodStampItem", 
+            "BeveragesDeposit",
+            "VendorName"
+            ])
 
         # add in clover items
         for item in items:
-            ws.append([item.itemDepartment, item.itemNumber, item.itemName, item.modifierGroups, item.description, item.itemBarcode, item.itemCost, item.itemSellPrice, item.inStock, item.tax1, item.displayInMenu, item.isInventoryItem, item.isFoodStampable, item.beverageDeposit])
+            ws.append([
+                item.itemDepartment, 
+                item.itemNumber, 
+                item.itemName, 
+                item.modifierGroups, 
+                item.description, 
+                item.itemBarcode, 
+                item.itemCost, 
+                item.itemSellPrice, 
+                item.inStock, 
+                item.tax1, 
+                item.displayInMenu, 
+                item.isInventoryItem, 
+                item.isFoodStampable, 
+                item.beverageDeposit
+                ])
         
         # create ModifierGroups sheet
         wb.create_sheet("ModifierGroups")
         ws = wb["ModifierGroups"]
-        ws.append(["Modifer Group Department", "Modifier Group Name", "Charged", "Modifier Department", "Modifier", "Price", "Min", "Max"])
+        ws.append([
+            "Modifer Group Department", 
+            "Modifier Group Name", 
+            "Charged", 
+            "Modifier Department", 
+            "Modifier", 
+            "Price", 
+            "Min", 
+            "Max"
+            ])
     elif task == "B" or task == "b": # Barcode Leading Zero Fix
         # load worksheet
         wb = load_workbook(inputFile)
